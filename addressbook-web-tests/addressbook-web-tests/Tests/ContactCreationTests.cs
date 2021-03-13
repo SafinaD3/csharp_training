@@ -12,15 +12,10 @@ namespace WebAddressbookTests
         [Test]
         public void ContactCreationTest()
         {
-            navigator.OpenHomePage();
-            loginHelper.Login(new AccountData("admin", "secret"));
-            InitContactCreation();
             ContactData contact = new ContactData("w", "q", "e");
             contact.Middlename = "r";
-            FillContactForm(contact);
-            SubmitContactCreation();
-            navigator.GoToHomePage();
-            Logout();
+            app.Contacts.Create(contact);
+            app.Auth.Logout();
         }
     }
 }

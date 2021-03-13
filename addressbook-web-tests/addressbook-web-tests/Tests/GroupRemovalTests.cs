@@ -12,13 +12,8 @@ namespace WebAddressbookTests
         [Test]
         public void GroupRemovalTest()
         {
-            navigator.OpenHomePage();
-            loginHelper.Login(new AccountData("admin", "secret"));
-            navigator.GoToGroupsPage();
-            groupHelper.SelectGroup(1);
-            groupHelper.RemoveGroup();
-            navigator.GoToGroupsPage();
-            Logout();
+            app.Groups.Remove(1);
+            app.Auth.Logout();
         }
     }
 }
