@@ -11,10 +11,12 @@ namespace WebAddressbookTests
 {
     public class ContactHelper : HelperBase
     {
+        private bool acceptNextAlert = true;
+
         public ContactHelper(ApplicationManager manager) : base(manager)
         {
         }
-
+        
         public ContactHelper Create(ContactData contact)
         {
             InitContactCreation();
@@ -23,7 +25,35 @@ namespace WebAddressbookTests
             manager.Navigator.GoToHomePage();
             return this;
         }
-        
+
+        public ContactHelper Modify(int v, ContactData changeContact)
+        {
+            InitContactModification(v);
+            FillContactForm(changeContact);
+            ConfirmModification();
+            manager.Navigator.GoToHomePage();
+            return this;
+        }
+
+        public ContactHelper Remove(int v)
+        {
+            InitContactModification(v);
+            RemoveContact();
+            return this;
+        }
+
+        public ContactHelper SelectContact(int index)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            return this;
+        }
+
+        public ContactHelper RemoveContact()
+        {
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            return this;
+        }
+
         public ContactHelper SubmitContactCreation()
         {
             driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
@@ -58,6 +88,18 @@ namespace WebAddressbookTests
         public ContactHelper InitContactCreation()
         {
             driver.FindElement(By.LinkText("add new")).Click();
+            return this;
+        }
+
+        public ContactHelper InitContactModification(int index)
+        {
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + index + "]")).Click();
+            return this;
+        }
+
+        public ContactHelper ConfirmModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
             return this;
         }
     }
