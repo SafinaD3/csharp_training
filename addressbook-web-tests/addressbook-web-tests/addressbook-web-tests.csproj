@@ -68,6 +68,7 @@
     <Compile Include="Model\GroupData.cs" />
     <Compile Include="Model\AccountData.cs" />
     <Compile Include="Tests\GroupModificationTests.cs" />
+    <Compile Include="Tests\TestSuiteFixture.cs" />
     <Compile Include="Unsorted\Figure.cs" />
     <Compile Include="Unsorted\Circle.cs" />
     <Compile Include="AppManager\GroupHelper.cs" />
