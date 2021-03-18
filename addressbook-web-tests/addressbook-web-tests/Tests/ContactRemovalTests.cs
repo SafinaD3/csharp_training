@@ -15,6 +15,13 @@ namespace WebAddressbookTests
             app.Contacts.Remove(1);
             app.Auth.Logout();
         }
+
+        [Test]
+        public void ContactRemovalFromMainFormTest()
+        {
+            app.Contacts.RemoveOtherMethod(1);
+            app.Auth.Logout();
+        }
     }
 }
 
