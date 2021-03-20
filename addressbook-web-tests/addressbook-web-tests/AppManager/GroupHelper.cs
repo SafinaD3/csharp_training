@@ -28,6 +28,7 @@ namespace WebAddressbookTests
         public GroupHelper Modify(int v, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage();
+            CreateIfEmpty();
             SelectGroup(v);
             InitGroupModification();
             FillGroupForm(newData);
@@ -50,8 +51,8 @@ namespace WebAddressbookTests
 
         public GroupHelper Remove(int p)
         {
-
             manager.Navigator.GoToGroupsPage();
+            CreateIfEmpty();
             SelectGroup(p);
             RemoveGroup();
             manager.Navigator.GoToGroupsPage();
@@ -89,6 +90,22 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.Name("new")).Click();
             return this;
+        }
+
+        public bool IsNotEmptyGrouptList()
+        {
+            return IsElementPresent(By.XPath("//input[@name='selected[]']"));
+        }
+        
+        public void CreateIfEmpty()
+        {
+            if (!IsNotEmptyGrouptList())
+            {
+                GroupData group = new GroupData("q");
+                group.Header = "q";
+                group.Footer = "q";
+                Create(group);
+            }
         }
     }
 }

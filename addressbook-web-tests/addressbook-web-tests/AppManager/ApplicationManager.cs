@@ -13,7 +13,6 @@ namespace WebAddressbookTests
     public class ApplicationManager
     {
         protected IWebDriver driver;
-        private StringBuilder verificationErrors;
         protected string baseURL;
 
         protected LoginHelper loginHelper;
@@ -26,7 +25,6 @@ namespace WebAddressbookTests
         {
             driver = new FirefoxDriver();
             baseURL = "http://localhost/addressbook";
-            //verificationErrors = new StringBuilder();
             loginHelper = new LoginHelper(this);
             navigator = new NavigationHelper(this, baseURL);
             groupHelper = new GroupHelper(this);
@@ -49,7 +47,9 @@ namespace WebAddressbookTests
         {
             if (! app.IsValueCreated)
             {
-                app.Value = new ApplicationManager();
+                ApplicationManager newInstance = new ApplicationManager();
+                newInstance.Navigator.OpenHomePage();
+                app.Value = newInstance;
             }
             return app.Value;
         }

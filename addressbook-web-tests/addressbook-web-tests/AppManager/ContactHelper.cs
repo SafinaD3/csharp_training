@@ -30,6 +30,7 @@ namespace WebAddressbookTests
 
         public ContactHelper Modify(int v, ContactData changeContact)
         {
+            CreateIfEmpty();
             InitContactModification(v);
             FillContactForm(changeContact);
             ConfirmModification();
@@ -39,16 +40,20 @@ namespace WebAddressbookTests
 
         public ContactHelper Remove(int v)
         {
+            CreateIfEmpty();
             InitContactModification(v);
             RemoveContact();
+            manager.Navigator.GoToHomePage();
             return this;
         }
         
         public ContactHelper RemoveOtherMethod(int v)
         {
+            CreateIfEmpty();
             SelectContact(v);
             RemoveContact();
             ConfirmRemoving();
+            manager.Navigator.GoToHomePage();
             return this;
         }
 
@@ -110,6 +115,21 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public bool IsNotEmptyContactList()
+        {
+            return IsElementPresent(By.XPath("//img[@alt='Details']"));
+        }
+
+        public void CreateIfEmpty()
+        {
+            if (!IsNotEmptyContactList())
+            {
+                ContactData contact = new ContactData("w", "q", "e");
+                contact.Middlename = "r";
+                Create(contact);
+            }
+        }
+        
         public ContactHelper ConfirmModification()
         {
             driver.FindElement(By.Name("update")).Click();

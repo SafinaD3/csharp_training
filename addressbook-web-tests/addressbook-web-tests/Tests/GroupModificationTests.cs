@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class GroupModificationTests : TestBase
+    public class GroupModificationTests : AuthTestBase
     {
         [Test]
         public void GroupModofocationTest()
@@ -16,9 +16,7 @@ namespace WebAddressbookTests
             GroupData newData = new GroupData("z");
             newData.Header = "z";
             newData.Footer = "z";
-
             app.Groups.Modify(1, newData);
-            app.Auth.Logout();
         }
     }
 }
