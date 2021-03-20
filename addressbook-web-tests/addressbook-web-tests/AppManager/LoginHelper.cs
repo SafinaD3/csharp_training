@@ -53,14 +53,5 @@ namespace WebAddressbookTests
                 && driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text 
                 == "(" + account.Username + ")";
         }
-
-        public void IsShownSomePage() 
-        {
-            if (!(IsElementPresent(By.LinkText("Logout"))
-                || IsElementPresent(By.XPath("//input[@value='Login']"))))
-            {
-                manager.Navigator.OpenHomePage(); 
-            }
-        }
     }
 }
