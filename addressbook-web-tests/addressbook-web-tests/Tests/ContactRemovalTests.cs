@@ -12,12 +12,14 @@ namespace WebAddressbookTests
         [Test]
         public void ContactRemovalTest()
         {
+            app.Contacts.CreateIfEmpty();
             app.Contacts.Remove(1);
         }
 
         [Test]
         public void ContactRemovalFromMainFormTest()
         {
+            app.Contacts.CreateIfEmpty();
             app.Contacts.RemoveOtherMethod(1);
         }
     }

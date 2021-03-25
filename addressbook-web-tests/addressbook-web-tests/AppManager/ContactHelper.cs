@@ -30,7 +30,6 @@ namespace WebAddressbookTests
 
         public ContactHelper Modify(int v, ContactData changeContact)
         {
-            CreateIfEmpty();
             InitContactModification(v);
             FillContactForm(changeContact);
             ConfirmModification();
@@ -40,7 +39,6 @@ namespace WebAddressbookTests
 
         public ContactHelper Remove(int v)
         {
-            CreateIfEmpty();
             InitContactModification(v);
             RemoveContact();
             manager.Navigator.GoToHomePage();
@@ -49,7 +47,6 @@ namespace WebAddressbookTests
         
         public ContactHelper RemoveOtherMethod(int v)
         {
-            CreateIfEmpty();
             SelectContact(v);
             RemoveContact();
             ConfirmRemoving();
@@ -157,5 +154,17 @@ namespace WebAddressbookTests
                 acceptNextAlert = true;
             }
         }
+
+        //internal List<ContactData> GetContactList()
+        //{
+        //    List<ContactData> contacts = new List<ContactData>();
+        //    manager.Navigator.GoToHomePage();
+        //    ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.center"));
+        //    foreach (IWebElement element in elements)
+        //    {
+        //        contacts.Add(new ContactData(element.Text, element.Text, element.Text));
+        //    }
+        //    return contacts;
+        //}
     }
 }

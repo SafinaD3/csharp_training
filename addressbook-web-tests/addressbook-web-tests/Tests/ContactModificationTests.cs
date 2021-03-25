@@ -14,6 +14,7 @@ namespace WebAddressbookTests
         {
             ContactData changeContact = new ContactData("aaa", "aaaa", "aaa");
             changeContact.Middlename = "aaa";
+            app.Contacts.CreateIfEmpty();
             app.Contacts.Modify(1, changeContact);
         }
     }
