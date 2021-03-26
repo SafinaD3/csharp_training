@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebAddressbookTests
+namespace WebAddressbookTests 
 {
-    public class ContactData
+    public class ContactData : IEquatable<ContactData> , IComparable<ContactData>
     {
         private string firstname;
         private string middlename = "";
@@ -80,6 +80,50 @@ namespace WebAddressbookTests
             {
                 address = value;
             }
+        }
+
+        public bool Equals(ContactData other)
+        {
+            if (Object.ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (Object.ReferenceEquals(this.Firstname, other.Firstname))
+            {
+                if (Object.ReferenceEquals(this.Lastname, other.Lastname))
+                {
+                    if (Object.ReferenceEquals(this.Address, other.Address))
+                    {
+                        return true;
+                    }
+                    return Address == other.Address;
+                }
+                return Lastname == other.Lastname;
+            }
+            return Firstname == other.Firstname;               
+        }
+        
+        public override int GetHashCode()
+        {
+            return Firstname.GetHashCode() + Lastname.GetHashCode() + Address.GetHashCode();
+        }
+        
+        public override string ToString()
+        {
+            return "name=" + Firstname + Lastname + Address;
+        }
+
+        public int CompareTo(ContactData other)
+        {
+            if (other is null)
+            {
+                return 1;
+            }             
+            if (Firstname.CompareTo(other.Firstname) == 0)
+            {
+                return Lastname.CompareTo(other.Lastname);
+            }
+            return Firstname.CompareTo(other.Firstname);
         }
     }
 }
