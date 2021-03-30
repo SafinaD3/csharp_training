@@ -8,77 +8,65 @@ namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData> , IComparable<ContactData>
     {
-        private string firstname;
-        private string middlename = "";
-        private string lastname;
-        private string address;
-        //private string nickname = "";
-        //private string title = "";
-        //private string company = "";
-        //private string home = "";
-        //private string mobile = "";
-        //private string work = "";
-        //private string fax = "";
-        //private string email = "";
-        //private string email2 = "";
-        //private string email3 = "";
-        //private string homepage = "";
-        //private string address2 = "";
-        //private string phone2 = "";
-        //private string notes = "";
+        private string allPhones;
 
         public ContactData(string lastname, string firstname, string address)
         {
-            this.lastname = lastname;
-            this.firstname = firstname;
-            this.address = address;
+            Lastname = lastname;
+            Firstname = firstname;
+            Address = address;
         }
 
-        public string Firstname
+        public string Firstname { get; set; }
+
+        public string Middlename { get; set; }
+
+        public string Lastname { get; set; }
+
+        public string Address { get; set; }
+
+        public string HomePhone { get; set; }
+
+        public string MobilePhone { get; set; }
+
+        public string WorkPhone { get; set; }
+
+        public string AllPhones
         {
             get
             {
-                return firstname;
+                if (allPhones != null)
+                {
+                    return allPhones;
+                }
+                else
+                {
+                    return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone)).Trim();
+                }
             }
             set
             {
-                firstname = value;
+                allPhones = value;
             }
         }
 
-        public string Middlename
-        {
-            get
-            {
-                return middlename;
-            }
-            set
-            {
-                middlename = value;
-            }
-        }
+        public string Email { get; set; }
 
-        public string Lastname
-        {
-            get
-            {
-                return lastname;
-            }
-            set
-            {
-                lastname = value;
-            }
-        }
+        public string Email2 { get; set; }
 
-        public string Address
+        public string Email3 { get; set; }
+
+        public string AllEmails { get; set; }
+
+        private string CleanUp(string phone)
         {
-            get
+            if (phone == null || phone == "")
             {
-                return address;
+                return "";
             }
-            set
+            else
             {
-                address = value;
+                return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
             }
         }
 

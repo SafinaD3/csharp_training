@@ -23,7 +23,7 @@ namespace WebAddressbookTests
             {
                 return true;
             }
-            return Name == other.Name;
+            return Name == other.Name; //Name.Equals(other.Name, StringComparison.Ordinal);
         }
 
         public override int GetHashCode()
