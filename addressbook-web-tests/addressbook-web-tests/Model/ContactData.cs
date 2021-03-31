@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests 
 {
     public class ContactData : IEquatable<ContactData> , IComparable<ContactData>
     {
         private string allPhones;
+        private string allEmails;
 
         public ContactData(string lastname, string firstname, string address)
         {
@@ -41,7 +43,7 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone)).Trim();
+                    return (CleanUp(HomePhone, true) + CleanUp(MobilePhone, true) + CleanUp(WorkPhone, true)).Trim();
                 }
             }
             set
@@ -56,17 +58,38 @@ namespace WebAddressbookTests
 
         public string Email3 { get; set; }
 
-        public string AllEmails { get; set; }
-
-        private string CleanUp(string phone)
+        public string AllEmails
         {
-            if (phone == null || phone == "")
+            get
+            {
+                if (allEmails != null)
+                {
+                    return allEmails;
+                }
+                else
+                {
+                    return (CleanUp(Email, false) + CleanUp(Email2, false) + CleanUp(Email3, false)).Trim();
+                }
+            }
+            set
+            {
+                allEmails = value;
+            }
+        }
+
+        private string CleanUp(string data, bool isPhone)
+        {
+            if (data == null || data == "")
             {
                 return "";
             }
             else
             {
-                return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+                if (isPhone == true)
+                {
+                    return Regex.Replace(data, "[ ()-]", "") + "\r\n";
+                }
+                return data + "\r\n";
             }
         }
 

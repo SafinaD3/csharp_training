@@ -28,6 +28,15 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper MainFieldsCreate(ContactData contact)
+        {
+            InitContactCreation();
+            FillMainFieldsContactForm(contact);
+            SubmitContactCreation();
+            manager.Navigator.GoToHomePage();
+            return this;
+        }
+
         public ContactHelper Modify(int v, ContactData changeContact)
         {
             InitContactModification(v);
@@ -87,18 +96,23 @@ namespace WebAddressbookTests
             Type(By.Name("middlename"), contact.Middlename);
             Type(By.Name("lastname"), contact.Lastname);
             Type(By.Name("address"), contact.Address);
-            //new SelectElement(driver.FindElement(By.Name("bday"))).SelectByText("15");
-            //driver.FindElement(By.XPath("//option[@value='15']")).Click();
-            //new SelectElement(driver.FindElement(By.Name("bmonth"))).SelectByText("November");
-            //driver.FindElement(By.XPath("//option[@value='November']")).Click();
-            //driver.FindElement(By.Name("byear")).Clear();
-            //driver.FindElement(By.Name("byear")).SendKeys("1");
-            //new SelectElement(driver.FindElement(By.Name("aday"))).SelectByText("15");
-            //driver.FindElement(By.XPath("(//option[@value='15'])[2]")).Click();
-            //new SelectElement(driver.FindElement(By.Name("amonth"))).SelectByText("November");
-            //driver.FindElement(By.XPath("(//option[@value='November'])[2]")).Click();
-            //driver.FindElement(By.Name("ayear")).Clear();
-            //driver.FindElement(By.Name("ayear")).SendKeys("2");
+            return this;
+        }
+
+        public ContactHelper FillMainFieldsContactForm(ContactData contact)
+        {
+            Type(By.Name("firstname"), contact.Firstname);
+            Type(By.Name("middlename"), contact.Middlename);
+            Type(By.Name("lastname"), contact.Lastname);
+            Type(By.Name("address"), contact.Address);
+
+            Type(By.Name("home"), contact.HomePhone);
+            Type(By.Name("mobile"), contact.MobilePhone);
+            Type(By.Name("work"), contact.WorkPhone);
+
+            Type(By.Name("email"), contact.Email);
+            Type(By.Name("email2"), contact.Email2);
+            Type(By.Name("email3"), contact.Email3);
             return this;
         }
 
@@ -221,6 +235,14 @@ namespace WebAddressbookTests
                 Email2 = email2,
                 Email3 = email3
             };
+        }
+
+        public int GetNumberOfSearchResults()
+        {
+            manager.Navigator.GoToHomePage();
+            string text = driver.FindElement(By.TagName("label")).Text;
+            Match m = new Regex(@"\d+").Match(text);
+            return Int32.Parse(m.Value);
         }
     }
 }
