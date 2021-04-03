@@ -128,6 +128,12 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper GoToContactBadge(int index)
+        {
+            driver.FindElement(By.XPath("(//img[@alt='Details'])[" + (index + 1) + "]")).Click();
+            return this;
+        }
+
         public bool IsNotEmptyContactList()
         {
             return IsElementPresent(By.XPath("//img[@alt='Details']"));
@@ -211,11 +217,20 @@ namespace WebAddressbookTests
             };
         }
 
+        public string GetContactInformationFromBadge(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            GoToContactBadge(index);
+            string dataFromBadge = driver.FindElement(By.Id("content")).Text;
+            return dataFromBadge;
+        }
+
         public ContactData GetContactInformationFromEditForm(int index)
         {
             manager.Navigator.GoToHomePage();
             InitContactModification(index);
             string firstname = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string middlename = driver.FindElement(By.Name("middlename")).GetAttribute("value");
             string lastname = driver.FindElement(By.Name("lastname")).GetAttribute("value");
             string address = driver.FindElement(By.Name("address")).GetAttribute("value");
 
@@ -228,6 +243,7 @@ namespace WebAddressbookTests
             string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
             return new ContactData(lastname, firstname, address)
             {
+                Middlename = middlename,
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,
                 WorkPhone = workPhone,
