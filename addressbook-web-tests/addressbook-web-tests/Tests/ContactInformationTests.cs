@@ -24,9 +24,11 @@ namespace WebAddressbookTests
         [Test]
         public void ContactInformationFromBadgeTest()
         {
-            string fromBadge = Regex.Replace(app.Contacts.GetContactInformationFromBadge(0), "[MHW:\r\n ()-]", "");
+            string fromBadge = app.Contacts.GetContactInformationFromBadge(0);
             ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(0);
-            string datafromForm = Regex.Replace(fromForm.Firstname + fromForm.Middlename + fromForm.Lastname + fromForm.Address + fromForm.AllPhones + fromForm.AllEmails, "[\r\n ]", "");
+            string datafromForm = fromForm.Firstname + " " + fromForm.Middlename + " " + fromForm.Lastname + 
+                "\r\n" + fromForm.Address + "\r\n\r\n" +
+                fromForm.AllPhonesForBagde + "\r\n\r\n" + fromForm.AllEmails;
             Assert.AreEqual(fromBadge, datafromForm);
         }
     }

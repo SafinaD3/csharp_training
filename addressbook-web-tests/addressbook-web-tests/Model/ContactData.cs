@@ -93,6 +93,49 @@ namespace WebAddressbookTests
             }
         }
 
+        public string AllPhonesForBagde
+        {
+            get
+            {
+                if (allPhones != null)
+                {
+                    return allPhones;
+                }
+                else
+                {
+                    return (PhoheForBadge(HomePhone, 1) + "\r\n" + PhoheForBadge(MobilePhone, 2) + "\r\n" + PhoheForBadge(WorkPhone, 3)).Trim();
+                }
+            }
+            set
+            {
+                allPhones = value;
+            }
+        }
+
+        private string PhoheForBadge(string data, int phoneType)
+        {
+            if (data == null || data == "")
+            {
+                return "";
+            }
+            else
+            {
+                if (phoneType == 1)
+                {
+                    return "H: " + data;
+                } 
+                else if (phoneType == 2)
+                {
+                    return "M: " + data;
+                }
+                else if (phoneType == 3)
+                {
+                    return "W: " + data;
+                }
+                return data + "\r\n";
+            }
+        }
+
         public bool Equals(ContactData other)
         {
             if (Object.ReferenceEquals(other, null))
