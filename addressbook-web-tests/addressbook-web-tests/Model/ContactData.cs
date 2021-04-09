@@ -12,6 +12,10 @@ namespace WebAddressbookTests
         private string allPhones;
         private string allEmails;
 
+        public ContactData()
+        {
+        }
+
         public ContactData(string lastname, string firstname, string address)
         {
             Lastname = lastname;
