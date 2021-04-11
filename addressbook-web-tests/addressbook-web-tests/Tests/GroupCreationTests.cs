@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml;
 using Newtonsoft.Json;
 using System.Xml.Serialization;
@@ -12,7 +13,7 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class GroupCreationTests : AuthTestBase
+    public class GroupCreationTests : GroupTestBase
     {
         public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
@@ -59,10 +60,10 @@ namespace WebAddressbookTests
         [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void GroupCreationTest(GroupData group)
         {
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            List<GroupData> oldGroups = GroupData.GetAll();
             app.Groups.Create(group);
             Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
-            List<GroupData> newGroups = app.Groups.GetGroupList();
+            List<GroupData> newGroups = GroupData.GetAll();
             oldGroups.Add(group);
             oldGroups.Sort();
             newGroups.Sort();
@@ -84,6 +85,24 @@ namespace WebAddressbookTests
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
+        }
+
+        [Test]
+        public void TestDBConnectivity()
+        {
+            foreach (ContactData contact in GroupData.GetAll()[0].GetContacts())
+            {
+                System.Console.Out.WriteLine(contact);
+            };
+            //DateTime start = DateTime.Now;
+            //List<GroupData> fromUi = app.Groups.GetGroupList();
+            //DateTime end = DateTime.Now;
+            //System.Console.Out.WriteLine(end.Subtract(start));
+            //
+            //start = DateTime.Now;
+            //List<GroupData> fromDb = GroupData.GetAll();
+            //end = DateTime.Now;
+            //System.Console.Out.WriteLine(end.Subtract(start));
         }
     }
 }

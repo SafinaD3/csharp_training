@@ -63,4 +63,31 @@ W;%)B`T)D3</AllEmails>
 M: :8+5;GS1R)LEN?YQ.P
 W: )K1.D9$OD/R@F5SD/Q?6L8</AllPhonesForBagde>
   </ContactData>
+  <ContactData>
+    <Firstname>Name</Firstname>
+    <Middlename>Mname</Middlename>
+    <Lastname>Lastname</Lastname>
+    <Address>Test 7/FA - 40</Address>
+    <HomePhone>999-99-99</HomePhone>
+    <MobilePhone>1234567891</MobilePhone>
+    <WorkPhone>+12345678</WorkPhone>
+    <AllPhones>
+      999-99-99
+      1234567891
+      +12345678
+    </AllPhones>
+    <Email>email@test.ru</Email>
+    <Email2>email2@test.ru</Email2>
+    <Email3>email3@test.ru</Email3>
+    <AllEmails>
+      email@test.ru
+      email1@test.ru
+      email2@test.ru
+    </AllEmails>
+    <AllPhonesForBagde>
+      H: 999-99-99
+      M: 1234567891
+      W: +12345678
+    </AllPhonesForBagde>
+  </ContactData>
 </ArrayOfContactData>
