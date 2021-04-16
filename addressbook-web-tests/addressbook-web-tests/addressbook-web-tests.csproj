@@ -120,6 +120,7 @@
     <Compile Include="AppManager\ContactHelper.cs" />
     <Compile Include="Model\AddressBookDB.cs" />
     <Compile Include="Model\GroupContactRelation.cs" />
+    <Compile Include="Tests\RemovingContactFromGroup.cs" />
     <Compile Include="Tests\AddingContactToGroupTests.cs" />
     <Compile Include="Tests\AuthTestBase.cs" />
     <Compile Include="Tests\GroupTestBase.cs" />
