@@ -12,12 +12,17 @@ namespace WebAddressbookTests
         [Test]
         public void RemovingContactFromGroupTest()
         {
-            GroupData group = GroupData.GetAll()[0];
+            //проверка, что есть хотя бы один контакт добавленный в группу
+            GroupData group = GroupData.GetAllWithContacts()[0];
+            if (group == null)
+            {
+                System.Console.Out.Write("Ни в одной группе нет контактов");
+            }
+            //находим первый контакт в этой группе
             List<ContactData> oldList = group.GetContacts();
-            ContactData contact = ContactData.GetAll().Except(oldList).First();
+            ContactData contact = oldList.First();
 
             app.Contacts.RemoveContactfromGroup(contact, group);
-
             List<ContactData> newList = group.GetContacts();
             oldList.Remove(contact);
             newList.Sort();

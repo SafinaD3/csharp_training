@@ -131,6 +131,15 @@ namespace WebAddressbookTests
             }
         }
 
+        public void Create()
+        {
+            manager.Navigator.GoToGroupsPage();
+            GroupData group = new GroupData("q");
+            group.Header = "q";
+            group.Footer = "q";
+            Create(group);
+        }
+
         public int GetGroupCount()
         {
             return driver.FindElements(By.CssSelector("span.group")).Count;

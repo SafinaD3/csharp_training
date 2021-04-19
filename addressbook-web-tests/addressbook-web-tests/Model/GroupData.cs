@@ -81,6 +81,16 @@ namespace WebAddressbookTests
             }
         }
 
+        public static List<GroupData> GetAllWithContacts()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from g in db.Groups
+                        from gcr in db.GCR.Where(p => p.GroupId == g.Id)
+                        select g).Distinct().ToList();
+            }
+        }
+
         public List<ContactData> GetContacts()
         {
             using (AddressBookDB db = new AddressBookDB())
