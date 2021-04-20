@@ -13,21 +13,26 @@ namespace WebAddressbookTests
         public void RemovingContactFromGroupTest()
         {
             //проверка, что есть хотя бы один контакт добавленный в группу
-            GroupData group = GroupData.GetAllWithContacts()[0];
-            if (group == null)
+            GroupData group = new GroupData();
+            ContactData contact = new ContactData();
+            if (!GroupData.GetAllWithContacts().Any()) //если нет ни одного контакта в группе
             {
-                System.Console.Out.Write("Ни в одной группе нет контактов");
+                app.Groups.CreateIfEmpty(); //создаем группу если нет
+                app.Contacts.CreateIfEmpty(); //создаем контакт если нет
+                group = GroupData.GetAll()[0]; 
+                contact = ContactData.GetAll()[0];
+                app.Contacts.AddContactToGroup(contact, group); // контакт в группу
             }
-            //находим первый контакт в этой группе
+            {
+                group = GroupData.GetAllWithContacts()[0];
+            }           
             List<ContactData> oldList = group.GetContacts();
-            ContactData contact = oldList.First();
-
+            contact = oldList.First();
             app.Contacts.RemoveContactfromGroup(contact, group);
             List<ContactData> newList = group.GetContacts();
             oldList.Remove(contact);
             newList.Sort();
             oldList.Sort();
-
             Assert.AreEqual(oldList, newList);
         }
     }

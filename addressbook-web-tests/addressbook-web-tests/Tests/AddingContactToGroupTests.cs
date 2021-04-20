@@ -26,9 +26,19 @@ namespace WebAddressbookTests
                 group = GroupData.GetAll().Except(allGroupsWithContacts).First();
             }
 
-            //находим контакт без группы
+            //находим контакт без группы, если нет - создаем новый
             List<ContactData> oldList = group.GetContacts();
-            ContactData contact = ContactData.GetAll().Except(oldList).First();
+            ContactData contact = new ContactData();
+            if (ContactData.GetAll().Except(oldList).Any())
+            {
+                contact = ContactData.GetAll().Except(oldList).First();
+            }
+            {
+                app.Contacts.Create();
+                group = GroupData.GetAll().Except(allGroupsWithContacts).First();
+            }
+
+            ContactData.GetAll().Except(oldList).First();
 
             app.Contacts.AddContactToGroup(contact, group);
 

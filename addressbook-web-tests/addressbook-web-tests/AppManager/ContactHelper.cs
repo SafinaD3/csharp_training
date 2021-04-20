@@ -28,6 +28,17 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper Create()
+        {
+            InitContactCreation();
+            ContactData contact = new ContactData("w", "q", "e");
+            contact.Middlename = "r";
+            FillContactForm(contact);
+            SubmitContactCreation();
+            manager.Navigator.GoToHomePage();
+            return this;
+        }
+
         public void AddContactToGroup(ContactData contact, GroupData group)
         {
             ClearGroupFilter();
