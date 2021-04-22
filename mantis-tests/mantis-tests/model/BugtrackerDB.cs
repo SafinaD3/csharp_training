@@ -12,5 +12,7 @@ namespace mantis_tests
         public BugtrackerDB() : base("Bugtracker") { }
 
         public ITable<ProjectData> Projects { get { return GetTable<ProjectData>(); } }
+
+        public ITable<AccData> Users { get { return GetTable<AccData>(); } }
     }
 }
