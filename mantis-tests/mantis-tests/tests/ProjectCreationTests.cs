@@ -29,6 +29,23 @@ namespace mantis_tests
             Assert.AreEqual(oldProjectCount, newProjectCount - 1);
         }
 
+        [Test]
+        public void ProjectCreationTestListFromDB()
+        {
+            ProjectData project = new ProjectData("Test", "Description");
+            List<ProjectData> oldProjects = ProjectData.GetAll();
+            ProjectData existingProject = oldProjects.Find(x => x.Name == project.Name);
+            if (existingProject != null)
+            {
+                app.Projects.Remove(existingProject.Id);
+            }
+            oldProjects = ProjectData.GetAll();
+            app.Projects.Create(project);
+            List<ProjectData> newProjects = ProjectData.GetAll();
+            oldProjects.Add(project);
+            Assert.AreEqual(oldProjects.Capacity, newProjects.Capacity);
+        }
+
         //[TestFixtureTearDown]
         //public void restoreConfig()
         //{
