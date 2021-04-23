@@ -21,7 +21,6 @@ namespace mantis_tests
         {
             Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
             AccountData account = new AccountData("administrator", "root");
-            //List<ProjectData> projects = client.mc_projects_get_user_accessible(account.Username, account.Password)[] ;
             if(!ProjectData.GetAll().Any())
             {
                 Mantis.ProjectData project = new Mantis.ProjectData();
@@ -30,8 +29,13 @@ namespace mantis_tests
                 client.mc_project_add(account.Username, account.Password, project);
             }
             ProjectData toBeRemoved = ProjectData.GetAll()[0];
-
+            Mantis.ProjectData[] projects = client.mc_projects_get_user_accessible(account.Username, account.Password);
+            int oldProjectCount = projects.Length;
             app.Projects.Remove(toBeRemoved.Id);
+            projects = client.mc_projects_get_user_accessible(account.Username, account.Password);
+            int newProjectCount = projects.Length;
+            Assert.AreEqual(oldProjectCount, newProjectCount + 1);
+
         }
     }
 }

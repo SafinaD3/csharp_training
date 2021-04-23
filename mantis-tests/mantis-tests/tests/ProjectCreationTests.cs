@@ -18,8 +18,15 @@ namespace mantis_tests
         [Test]
         public void ProjectCreationTest()
         {
+            Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
+            AccountData account = new AccountData("administrator", "root");
             ProjectData project = new ProjectData("Test", "Description");
+            Mantis.ProjectData[] projects = client.mc_projects_get_user_accessible(account.Username, account.Password);
+            int oldProjectCount = projects.Length;
             app.Projects.Create(project);
+            projects = client.mc_projects_get_user_accessible(account.Username, account.Password);
+            int newProjectCount = projects.Length;
+            Assert.AreEqual(oldProjectCount, newProjectCount - 1);
         }
 
         //[TestFixtureTearDown]
