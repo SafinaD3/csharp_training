@@ -8,7 +8,7 @@ using LinqToDB.Mapping;
 namespace mantis_tests
 {
     [Table(Name = "mantis_project_table")]
-    public class ProjectData //: IEquatable<ProjectData>, IComparable<ProjectData>
+    public class ProjectData : IEquatable<ProjectData>, IComparable<ProjectData>
     {
         public ProjectData()
         {
@@ -35,6 +35,36 @@ namespace mantis_tests
             {
                 return (from g in db.Projects select g).ToList();
             }
+        }
+
+        public int CompareTo(ProjectData other)
+        {
+            if (other is null)
+            {
+                return 1;
+            }
+            if (Name.CompareTo(other.Name) == 0)
+            {
+                return Description.CompareTo(other.Description);
+            }
+            return Name.CompareTo(other.Name);
+        }
+
+        public bool Equals(ProjectData other)
+        {
+            if (Object.ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (Object.ReferenceEquals(this.Name, other.Name))
+            {
+                if (Object.ReferenceEquals(this.Description, other.Description))
+                {
+                    return true;
+                }
+                return Description == other.Description;
+            }
+            return Name == other.Name;
         }
     }
 }
